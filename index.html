@@ -549,10 +549,10 @@
         <h2 class="section-title reveal">Open Source Activity</h2>
         <p class="section-sub reveal">Consistent contributions and open-source projects on GitHub.</p>
         <div class="github-grid reveal">
-          <div class="github-stat-card"><div class="github-stat-num">10+</div><div class="github-stat-label">Repositories</div></div>
-          <div class="github-stat-card"><div class="github-stat-num">2+</div><div class="github-stat-label">Public Projects</div></div>
-          <div class="github-stat-card"><div class="github-stat-num">200+</div><div class="github-stat-label">Contributions</div></div>
-          <div class="github-stat-card"><div class="github-stat-num">1+</div><div class="github-stat-label">Stars Earned</div></div>
+          <div class="github-stat-card"><div class="github-stat-num" id="stat-repos">—</div><div class="github-stat-label">Repositories</div></div>
+          <div class="github-stat-card"><div class="github-stat-num" id="stat-followers">—</div><div class="github-stat-label">Followers</div></div>
+          <div class="github-stat-card"><div class="github-stat-num" id="stat-stars">—</div><div class="github-stat-label">Stars Earned</div></div>
+          <div class="github-stat-card"><div class="github-stat-num" id="stat-following">—</div><div class="github-stat-label">Following</div></div>
         </div>
         <div class="github-contrib-wrap reveal">
           <div class="contrib-title">// Contribution Activity</div>
@@ -601,7 +601,7 @@
               <a href="https://github.com/Abhixyz8172" class="contact-link" target="_blank"><i class="fab fa-github"></i> github.com/Abhixyz8172</a>
             </div>
           </div>
-          <form class="contact-form reveal reveal-delay-2" action="https://formspree.io/f/your-form-id" method="POST">
+          <form class="contact-form reveal reveal-delay-2" action="https://formspree.io/f/xgonqged" method="POST">
             <div class="form-group"><label for="name">Your Name</label><input type="text" id="name" name="name" placeholder="John Doe" required /></div>
             <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="john@example.com" required /></div>
             <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea></div>
@@ -655,6 +655,29 @@
       window.addEventListener('scroll', () => {
         document.getElementById('navbar').style.background = window.scrollY > 50 ? 'rgba(6,8,16,0.97)' : 'rgba(6,8,16,0.85)';
       });
+    </script>
+    <script>
+      // GitHub API — Auto fetch real stats
+      async function fetchGitHubStats() {
+        try {
+          const userRes = await fetch('https://api.github.com/users/Abhixyz8172');
+          const user = await userRes.json();
+
+          document.getElementById('stat-repos').textContent = user.public_repos || '—';
+          document.getElementById('stat-followers').textContent = user.followers || '—';
+          document.getElementById('stat-following').textContent = user.following || '—';
+
+          // Fetch stars from all repos
+          const reposRes = await fetch('https://api.github.com/users/Abhixyz8172/repos?per_page=100');
+          const repos = await reposRes.json();
+          const totalStars = repos.reduce((sum, r) => sum + r.stargazers_count, 0);
+          document.getElementById('stat-stars').textContent = totalStars;
+
+        } catch (e) {
+          console.log('GitHub API error:', e);
+        }
+      }
+      fetchGitHubStats();
     </script>
   </body>
 </html>
