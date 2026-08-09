@@ -240,7 +240,7 @@
         <div class="nav-actions">
           <a href="https://github.com/Abhixyz8172" title="GitHub"><i class="fab fa-github"></i></a>
           <a href="https://linkedin.com/in/abhishekyad01" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="assets/Abhishek_Yadav_CV.pdf" class="cv-btn">Download CV</a>
+          <a href="assets/Abhishek_Yadav_CV.pdf" class="cv-btn" download>Download CV</a>
         </div>
         <button class="hamburger" id="hamburger" aria-label="Menu">
           <span></span><span></span><span></span>
@@ -255,7 +255,7 @@
       <a href="#extracurricular">Activities</a>
       <a href="#github">GitHub</a>
       <a href="#contact">Contact</a>
-      <a href="assets/Abhishek_Yadav_CV.pdf">Download CV</a>
+      <a href="assets/Abhishek_Yadav_CV.pdf" download>Download CV</a>
     </div>
 
     <section class="hero" id="home">
@@ -396,15 +396,14 @@
               </div>
             </div>
           </div>
-          <div class="project-card reveal reveal-delay-2" style="position:relative;">
-            <div style="position:absolute;top:12px;right:12px;z-index:10;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);color:#f59e0b;font-size:0.6rem;letter-spacing:0.12em;padding:0.25rem 0.6rem;border-radius:999px;font-family:var(--font-mono);">⚡ COMING SOON</div>
+          <div class="project-card reveal reveal-delay-2">
             <div class="project-thumb" style="background: linear-gradient(135deg, #0d1117, #1a0a2e)"><div class="project-thumb-line"></div><div class="project-thumb-icon"><i class="fas fa-satellite-dish"></i></div></div>
             <div class="project-body">
               <h3>LogSentinel — Server Monitoring</h3>
               <p>Real-time observability system capturing live logs (INFO, ERROR, CRITICAL) with WebSocket streaming under 200ms latency. Redis message broker for high-throughput pipelines + Telegram/Email webhook alerts for instant incident response.</p>
               <div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">WebSockets</span><span class="stack-tag">Redis</span><span class="stack-tag">Docker</span></div>
               <div class="project-links">
-                <span class="proj-link secondary" style="opacity:0.5;cursor:default;"><i class="fab fa-github"></i> Repo Private</span>
+                <a href="https://github.com/Abhixyz8172/logsentinel" class="proj-link secondary" target="_blank"><i class="fab fa-github"></i> GitHub</a>
               </div>
             </div>
           </div>
@@ -610,19 +609,6 @@
         entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
       }, { threshold: 0.1 });
       reveals.forEach(el => observer.observe(el));
-      const graph = document.getElementById('contribGraph');
-      const levels = [0,0,0,1,1,2,2,3,4,3,2,1,0,1,2,3,4,4,3,2,1,0,0,1,2,3,3,2,1,2,3,4,3,2,1,0,1,2,3,2,1,0,0,1,2,3,4,3,2,1,0,1,2,3];
-      for (let w = 0; w < 52; w++) {
-        const week = document.createElement('div'); week.className = 'contrib-week';
-        for (let d = 0; d < 7; d++) {
-          const day = document.createElement('div');
-          const idx = (w * 7 + d) % levels.length;
-          const lvl = Math.random() > 0.3 ? levels[idx] : 0;
-          day.className = 'contrib-day' + (lvl > 0 ? ' l' + lvl : '');
-          week.appendChild(day);
-        }
-        graph.appendChild(week);
-      }
       window.addEventListener('scroll', () => {
         document.getElementById('navbar').style.background = window.scrollY > 50 ? 'rgba(6,8,16,0.97)' : 'rgba(6,8,16,0.85)';
       });
